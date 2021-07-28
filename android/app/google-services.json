@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "346069253034",
+    "project_id": "africa-businet",
+    "storage_bucket": "africa-businet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346069253034:android:26a83601c3c50a0c3209d3",
+        "android_client_info": {
+          "package_name": "com.stanleylab.businet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346069253034-poj43spotpupddtu80i0juo344d31lhp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stanleylab.businet",
+            "certificate_hash": "b426b1c9a6532459221ff3462b50a5c83968dc5f"
+          }
+        },
+        {
+          "client_id": "346069253034-o87anprhe3voapi5ik07pkt937v6vcal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmrI_Yt68oQUK2wfrgifSZXkjnE4CJS9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346069253034-o87anprhe3voapi5ik07pkt937v6vcal.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "346069253034-417ut8mjgmv63fi6ptge1dm04ccqcpk1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stanleylab97.africaBusinet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346069253034:android:540343a46045a2ae3209d3",
+        "android_client_info": {
+          "package_name": "com.stanleylab97.africa_businet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346069253034-5uuta682t3l5aabpcqdts8qb2tqmm5am.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stanleylab97.africa_businet",
+            "certificate_hash": "501f71796722d40fb959c1b8b59cad1162805c01"
+          }
+        },
+        {
+          "client_id": "346069253034-o87anprhe3voapi5ik07pkt937v6vcal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmrI_Yt68oQUK2wfrgifSZXkjnE4CJS9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346069253034-o87anprhe3voapi5ik07pkt937v6vcal.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "346069253034-417ut8mjgmv63fi6ptge1dm04ccqcpk1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stanleylab97.africaBusinet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
