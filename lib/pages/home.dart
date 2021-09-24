@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   List<IconData> iconList = [
     Feather.home,
-    Feather.youtube,
+    Feather.message_circle,
     MdiIcons.accountHardHat,
     MdiIcons.bullhorn,
     Feather.user
@@ -79,19 +79,13 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(iconList[0]), label: 'Accueil'.tr()),
           BottomNavigationBarItem(
-              icon: Icon(iconList[1]), label: 'TalentsTV'.tr()),
+              icon: Icon(iconList[1]), label: 'Réseau'.tr()),
           BottomNavigationBarItem(
               icon: Icon(
                 iconList[2],
                 size: 25,
               ),
               label: 'Projets'.tr()),
-          BottomNavigationBarItem(
-              icon: Icon(
-                iconList[3],
-                size: 25,
-              ),
-              label: 'USBoost'.tr()),
           BottomNavigationBarItem(icon: Icon(iconList[4]), label: 'Profil'.tr())
         ],
       ),
@@ -101,9 +95,9 @@ class _HomePageState extends State<HomePage> {
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Explore(),
-          VideoArticles(),
           Placeholder(),
-          Categories(),
+          Placeholder(),
+          //Categories(),
           ProfilePage()
         ],
       ),

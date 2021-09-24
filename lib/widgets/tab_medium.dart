@@ -50,7 +50,7 @@ class _TabMediumState extends State<TabMedium> {
           cb1.setLoading(true);
           cb1.getData(
             mounted,
-            Config().initialCategories[0],
+            "video",
           );
         }
       }

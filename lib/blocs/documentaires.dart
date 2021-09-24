@@ -26,15 +26,15 @@ class CategoryTab1Bloc extends ChangeNotifier{
     
     if (_lastVisible == null)
       rawData = await firestore
-          .collection('TalentsTV')
-          .where('category', isEqualTo: category)
+          .collection('TalentsTV').doc("").collection("")
+          .where('content type', isEqualTo: category)
           .orderBy('timestamp', descending: true)
           .limit(4)
           .get();
     else
       rawData = await firestore
-          .collection('TalentsTV')
-          .where('category', isEqualTo: category)
+          .collection('TalentsTV').doc("").collection("")
+           .where('content type', isEqualTo: category)
           .orderBy('timestamp', descending: true)
           .startAfter([_lastVisible['timestamp']])
           .limit(4)
