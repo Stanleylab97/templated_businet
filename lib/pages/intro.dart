@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:news_app/blocs/sign_in_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:news_app/config/config.dart';
 import 'package:news_app/pages/home.dart';
 import 'package:news_app/utils/next_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'investisseur/dashboard.dart';
 
 class IntroPage extends StatefulWidget {
@@ -22,12 +23,27 @@ class _IntroPageState extends State<IntroPage> {
   void afterIntroComplete() {
     final SignInBloc sb = Provider.of<SignInBloc>(context, listen: false);
     sb.setSignIn();
-    getCategory();
-    if ("Investisseur" == "Investisseur") {
-      nextScreenReplace(context, Dasshboard());
-    } else {
-      nextScreenReplace(context, HomePage());
-    }
+    // getCategory();
+
+    // var document =  FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser.uid).get();
+    FirebaseFirestore.instance
+        .collection('users')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        if (doc.id == FirebaseAuth.instance.currentUser.uid) {
+          print(doc["category"]);
+          this.x = doc["category"].toString();
+          print('Rec: ${this.x}');
+          if (this.x == "Entrepreneur") {
+            print("Message: ${this.x}");
+            nextScreenReplace(context, HomePage());
+          } else {
+            nextScreenReplace(context, Dasshboard());
+          }
+        }
+      });
+    });
   }
 
   Future getCategory() async {

@@ -6,6 +6,7 @@ import 'package:news_app/blocs/sign_in_bloc.dart';
 import 'package:news_app/config/config.dart';
 import 'package:news_app/pages/done.dart';
 import 'package:news_app/pages/sign_up.dart';
+import 'package:news_app/pages/sign_in.dart';
 import 'package:news_app/utils/app_name.dart';
 import 'package:news_app/utils/next_screen.dart';
 import 'package:news_app/utils/snacbar.dart';
@@ -220,10 +221,10 @@ class _WelcomePageState extends State<WelcomePage> {
                   children: <Widget>[
                     Image(
                       image: AssetImage(Config().splashIcon),
-                      height: 130,
+                      height: MediaQuery.of(context).size.height * 0.23,
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -248,9 +249,9 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 30, right: 30, top: 5),
+                              left: 30, right: 30, top: 2),
                           child: Text(
-                            'Authentifiez-vous pour Continuer',
+                            'Selectionnez votre profil',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 14,
@@ -262,13 +263,12 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                   ],
                 )),
-
             Flexible(
               flex: 2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RoundedLoadingButton(
+                  /*     RoundedLoadingButton(
                     child: Wrap(
                       children: [
                         Icon(
@@ -294,11 +294,45 @@ class _WelcomePageState extends State<WelcomePage> {
                     color: Colors.blueAccent,
                     elevation: 0,
                     borderRadius: 3,
+                  ), */
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+                    child: FlatButton(
+                        onPressed: () {
+                          nextScreen(context, SignInPage());
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        color: Color(0xFF80C030),
+                        padding: EdgeInsets.only(
+                            left: 60, top: 15, bottom: 15, right: 60),
+                        child: Text("Investisseur",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold))),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 1,
                   ),
-                  RoundedLoadingButton(
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, right: 20, left: 20),
+                    child: FlatButton(
+                        onPressed: () {
+                          nextScreen(context, SignInPage());
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        color: Colors.red,
+                        padding: EdgeInsets.only(
+                            left: 60, top: 15, bottom: 15, right: 60),
+                        child: Text("Entrepreneur",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold))),
+                  ),
+                  /*  RoundedLoadingButton(
                     child: Wrap(
                       children: [
                         Icon(
@@ -324,9 +358,9 @@ class _WelcomePageState extends State<WelcomePage> {
                     color: Colors.indigo,
                     elevation: 0,
                     borderRadius: 3,
-                  ),
+                  ), */
                   SizedBox(
-                    height: 10,
+                    height: 1,
                   ),
                   Platform.isAndroid
                       ? Container()
@@ -360,11 +394,9 @@ class _WelcomePageState extends State<WelcomePage> {
                 ],
               ),
             ),
-
-            //Spacer(),
-            //SizedBox(height: 30,),
-            Text("Pas de compte social?").tr(),
-            TextButton(
+            Spacer(),
+            Text("\&copy IrokoLab").tr(),
+            /*  TextButton(
               child: Text(
                 'continuer avec votre e-mail >>',
                 style: TextStyle(color: Theme.of(context).primaryColor),
@@ -380,7 +412,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       ));
                 }
               },
-            ),
+            ), */
             SizedBox(
               height: 15,
             ),

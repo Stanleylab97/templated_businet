@@ -1,5 +1,4 @@
 import 'package:news_app/config/palette.dart';
-//import 'package:news_app/pages/projets/allprojects.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

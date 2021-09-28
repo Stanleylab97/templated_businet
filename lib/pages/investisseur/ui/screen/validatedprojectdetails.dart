@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:news_app/utils/snacbar.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import '../component/button.dart';
@@ -19,6 +20,7 @@ class ValidatedProjectDetails extends StatefulWidget {
 class _ValidatedProjectDetailsState extends State<ValidatedProjectDetails> {
   final GlobalKey<SlideActionState> _buttonKey = GlobalKey<SlideActionState>();
   bool addedToCart = false; // Just for Demonstration
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -286,6 +288,7 @@ class _ValidatedProjectDetailsState extends State<ValidatedProjectDetails> {
                                 addedToCart = true;
                               });
                               // _buttonKey.currentState!.reset();
+                               openSnacbar(_scaffoldKey, 'Pas de connexion internet');
                             });
                           },
                           // sliderRotate: false,

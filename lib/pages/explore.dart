@@ -36,10 +36,10 @@ class _ExploreState extends State<Explore>
       text: "Tout".tr(),
     ),
     Tab(
-      text: Config().initialCategories[0],
+      text: "TalentTV",
     ),
     Tab(
-      text: Config().initialCategories[1],
+      text: "USBoost",
     ),
   ];
 

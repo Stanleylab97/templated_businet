@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/pages/investisseur/ui/screen/home.dart';
+import 'package:news_app/pages/investisseur/ui/screen/investissements.dart';
 import 'package:news_app/pages/investisseur/ui/screen/validatedprojects.dart';
 
 import 'ui/component/appBar.dart';
@@ -11,7 +12,7 @@ class Dasshboard extends StatefulWidget {
   _DasshboardState createState() => _DasshboardState();
 }
 
-enum TabItem { home, done, explore, notification, setting }
+enum TabItem { home, done, explore, history, setting }
 
 class _DasshboardState extends State<Dasshboard> {
   TabItem _currentItem = TabItem.home;
@@ -19,7 +20,7 @@ class _DasshboardState extends State<Dasshboard> {
     TabItem.home,
     TabItem.done,
     TabItem.explore,
-    TabItem.notification,
+    TabItem.history,
     TabItem.setting
   ];
 
@@ -68,8 +69,8 @@ class _DasshboardState extends State<Dasshboard> {
         return Icons.verified;
       case TabItem.explore:
         return Icons.explore;
-      case TabItem.notification:
-        return Icons.notifications;
+      case TabItem.history:
+        return Icons.history;
       case TabItem.setting:
         return Icons.settings;
       default:
@@ -85,8 +86,8 @@ class _DasshboardState extends State<Dasshboard> {
         return ValidatedProjects();
       case TabItem.explore:
         return Placeholder();
-      case TabItem.notification:
-        return Placeholder();
+      case TabItem.history:
+        return Investissements();
       case TabItem.setting:
         return Placeholder();
       default:

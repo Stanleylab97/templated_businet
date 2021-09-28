@@ -7,9 +7,10 @@ import '../blocs/sign_in_bloc.dart';
 import '../utils/next_screen.dart';
 import 'home.dart';
 import 'investisseur/dashboard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashPage extends StatefulWidget {
-  
   SplashPage({Key key}) : super(key: key);
 
   _SplashPageState createState() => _SplashPageState();
@@ -19,25 +20,46 @@ class _SplashPageState extends State<SplashPage> {
   String x;
   afterSplash() {
     final SignInBloc sb = context.read<SignInBloc>();
-    Future.delayed(Duration(milliseconds: 1500)).then((value) {
+    Future.delayed(Duration(milliseconds: 1000)).then((value) {
       if (sb.isSignedIn == true || sb.guestUser == true) {
-        getCategory();
-        if (this.x == "Investisseur") {
-          nextScreenReplace(context, Dasshboard());
-        } else {
+        FirebaseFirestore.instance
+            .collection('users')
+            .get()
+            .then((QuerySnapshot querySnapshot) {
+          querySnapshot.docs.forEach((doc) {
+            if (doc.id == FirebaseAuth.instance.currentUser.uid) {
+              print(doc["category"]);
+              this.x = doc["category"].toString();
+              print('Rec: ${this.x}');
+
+              var t = this.x;
+              if (t == "Entrepreneur") {
+                print("Message: ${this.x}");
+                nextScreenReplace(context, HomePage());
+              } else {
+                nextScreenReplace(context, Dasshboard());
+              }
+            }
+          });
+        });
+
+        if (this.x == "Entrepreneur") {
+          print("Message: ${this.x}");
           nextScreenReplace(context, HomePage());
+        } else {
+          nextScreenReplace(context, Dasshboard());
         }
       } else
         gotoSignInPage();
     });
   }
 
- Future getCategory() async {
+  Future getCategory() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     this.x = sp.getString('category');
-    String y = this.x;
-    print("Categorie: $y");
+    print("Categorie: ${this.x}");
   }
+
   gotoHomePage() {
     final SignInBloc sb = context.read<SignInBloc>();
     if (sb.isSignedIn == true) {

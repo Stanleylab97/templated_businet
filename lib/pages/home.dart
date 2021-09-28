@@ -10,6 +10,7 @@ import 'package:news_app/pages/profile.dart';
 import 'package:news_app/pages/videos.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:news_app/pages/projets/createproject.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -96,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Explore(),
           Placeholder(),
-          Placeholder(),
+          CreateProject(),
           //Categories(),
           ProfilePage()
         ],

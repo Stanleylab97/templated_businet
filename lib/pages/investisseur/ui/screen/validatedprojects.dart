@@ -31,14 +31,17 @@ class _ValidatedProjectsState extends State<ValidatedProjects> {
             return Text(
                 'Veuillez réessayer plus tard. Un léger soucis de connexion');
           }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+
           if (!snapshot.hasData) {
             return Center(
               child: Text('Pas de projets validés en attentes'),
             );
           }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
+
           final x = snapshot.data.docs.length;
           print("Record lenght: $x");
 
@@ -86,9 +89,12 @@ class ValidatedLeft extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    var pourcentage = ((doc['collectedAmount'] / doc["needAmount"]) * 100);
+    String v = pourcentage.toStringAsFixed(2);
     return Container(
         margin: EdgeInsets.only(bottom: 2, top: 2),
-        height: 120,
+        height: size.height * .218,
         padding: EdgeInsets.only(left: 20, right: 20, bottom: 0),
         child: Container(
           decoration: BoxDecoration(
@@ -143,9 +149,9 @@ class ValidatedLeft extends StatelessWidget {
                   animationDuration: 2500,
                   percent: doc['collectedAmount'] / doc["needAmount"],
                   center: Text(
-                      ((doc['collectedAmount'] / doc["needAmount"]) * 100)
-                              .toString() +
-                          "%"),
+                    v + "%",
+                    style: TextStyle(fontSize: 11),
+                  ),
                   linearStrokeCap: LinearStrokeCap.roundAll,
                   progressColor: Colors.orange,
                 ),
@@ -166,9 +172,12 @@ class ValidatedRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    var pourcentage = ((doc['collectedAmount'] / doc["needAmount"]) * 100);
+    String v = pourcentage.toStringAsFixed(2);
     return Container(
         margin: EdgeInsets.only(bottom: 2, top: 2),
-        height: 120,
+        height: size.height * .218,
         padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
         child: Container(
           decoration: BoxDecoration(
@@ -222,9 +231,9 @@ class ValidatedRight extends StatelessWidget {
                   animationDuration: 2500,
                   percent: doc['collectedAmount'] / doc["needAmount"],
                   center: Text(
-                      ((doc['collectedAmount'] / doc["needAmount"]) * 100)
-                              .toString() +
-                          "%"),
+                    v + "%",
+                    style: TextStyle(fontSize: 11),
+                  ),
                   linearStrokeCap: LinearStrokeCap.roundAll,
                   progressColor: Colors.orange,
                 ),
