@@ -1,4 +1,4 @@
-/* /* import 'package:africa_businet/Config/palette.dart';
+/*import 'package:africa_businet/Config/palette.dart';
 import 'package:africa_businet/Screens/messenging/callscreens/video_call.dart';
 import 'package:africa_businet/Screens/messenging/callscreens/voice_call.dart';
 import 'package:africa_businet/services/agora_token.dart'; */
@@ -43,14 +43,13 @@ class ProjectDetails extends StatelessWidget {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => Placeholder()
-          /*  VideoCall(
+        MaterialPageRoute(builder: (context) => Placeholder()
+            /*  VideoCall(
             token: prefs.get('AGORATOKEN'),
             channelName: prefs.get('Channel'),
             role: ClientRole.Broadcaster,
           ), */
-        ),
+            ),
       );
     }
 
@@ -74,7 +73,7 @@ class ProjectDetails extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                   horizontal: 30,
                 ),
-                child: Row(
+                child: Placeholder() /* Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     InkWell(
@@ -91,12 +90,12 @@ class ProjectDetails extends StatelessWidget {
                       height: 18,
                     ),
                   ],
-                ),
+                ), */
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.24,
               ),
-              Container(
+              /* Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Palette.kBackgroundColor,
@@ -145,7 +144,7 @@ class ProjectDetails extends StatelessWidget {
                                   InkWell(
                                       onTap: () async {
                                         print("AGORATOKEN");
-                                        SharedPreferences prefs =
+                                      /*   SharedPreferences prefs =
                                             await SharedPreferences
                                                 .getInstance();
                                         print(prefs.get('AGORATOKEN'));
@@ -157,7 +156,7 @@ class ProjectDetails extends StatelessWidget {
                                                     token:
                                                         prefs.get('AGORATOKEN'),
                                                     channel:
-                                                        prefs.get('Channel'))));
+                                                        prefs.get('Channel')))); */
                                       },
                                       child: Container(
                                         padding: EdgeInsets.all(10),
@@ -288,11 +287,11 @@ class ProjectDetails extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ) */
             ],
           ),
         ),
       ),
     );
   }
-} */
+}

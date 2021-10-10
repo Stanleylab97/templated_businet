@@ -319,7 +319,7 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
                                       color: Colors.black87, size: 20),
                                   label: Text('commentaires',
                                           style:
-                                              TextStyle(color: Colors.black87))
+                                              TextStyle(color: Colors.black87,fontSize: 13))
                                       .tr(),
                                   onPressed: () {
                                     _controller.pause();

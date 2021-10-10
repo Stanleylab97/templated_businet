@@ -26,10 +26,10 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  final RoundedLoadingButtonController _googleController =
+/*   final RoundedLoadingButtonController _googleController =
       new RoundedLoadingButtonController();
   final RoundedLoadingButtonController _facebookController =
-      new RoundedLoadingButtonController();
+      new RoundedLoadingButtonController(); */
   final RoundedLoadingButtonController _appleController =
       new RoundedLoadingButtonController();
 
@@ -39,7 +39,7 @@ class _WelcomePageState extends State<WelcomePage> {
     nextScreen(context, DonePage());
   }
 
-  handleGoogleSignIn() async {
+  /* handleGoogleSignIn() async {
     final SignInBloc sb = Provider.of<SignInBloc>(context, listen: false);
     final InternetBloc ib = Provider.of<InternetBloc>(context, listen: false);
     await ib.checkInternet();
@@ -79,9 +79,9 @@ class _WelcomePageState extends State<WelcomePage> {
         }
       });
     }
-  }
+  } */
 
-  void handleFacebbokLogin() async {
+/*   void handleFacebbokLogin() async {
     final SignInBloc sb = Provider.of<SignInBloc>(context, listen: false);
     final InternetBloc ib = Provider.of<InternetBloc>(context, listen: false);
     await ib.checkInternet();
@@ -119,7 +119,7 @@ class _WelcomePageState extends State<WelcomePage> {
         }
       });
     }
-  }
+  } */
 
   handleAppleSignIn() async {
     final sb = context.read<SignInBloc>();
@@ -302,8 +302,8 @@ class _WelcomePageState extends State<WelcomePage> {
                           nextScreen(context, SignInPage());
                         },
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        color: Color(0xFF80C030),
+                            borderRadius: BorderRadius.only(topLeft:Radius.circular(20) ,topRight: Radius.circular(20), bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))),
+                        color: Color.fromRGBO(242, 156, 58, 1),
                         padding: EdgeInsets.only(
                             left: 60, top: 15, bottom: 15, right: 60),
                         child: Text("Investisseur",
@@ -322,7 +322,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           nextScreen(context, SignInPage());
                         },
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
+                            borderRadius: BorderRadius.only(topLeft:Radius.circular(20) ,topRight: Radius.circular(20), bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))),
                         color: Colors.red,
                         padding: EdgeInsets.only(
                             left: 60, top: 15, bottom: 15, right: 60),

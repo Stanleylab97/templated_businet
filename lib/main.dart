@@ -30,28 +30,27 @@ import 'blocs/category_tab3_bloc.dart';
 import 'blocs/comments_bloc.dart';
 import 'models/theme_model.dart';
 
+import 'models/chat/chat_params.dart';
+import 'package:news_app/pages/chat/chat/chat_screen.dart';
 
 FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
-FirebaseAnalyticsObserver firebaseObserver =  FirebaseAnalyticsObserver(analytics: firebaseAnalytics);
+FirebaseAnalyticsObserver firebaseObserver =
+    FirebaseAnalyticsObserver(analytics: firebaseAnalytics);
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark));
+  runApp(EasyLocalization(
+    supportedLocales: [Locale('fr'), Locale('en'), Locale('es')],
+    path: 'assets/translations',
+    fallbackLocale: Locale('fr'),
+    startLocale: Locale('fr'),
+    useOnlyLangCode: true,
+    child: MyApp(),
   ));
-  runApp(
-    EasyLocalization(
-      supportedLocales: [Locale('fr'), Locale('en'), Locale('es')],
-      path: 'assets/translations',
-      fallbackLocale: Locale('fr'),
-      startLocale: Locale('fr'),
-      useOnlyLangCode: true,
-      child: MyApp(),
-    )
-  );
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -59,52 +58,106 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider<ThemeBloc>(
       create: (_) => ThemeBloc(),
       child: Consumer<ThemeBloc>(
-        builder: (_, mode, child){
+        builder: (_, mode, child) {
           return MultiProvider(
-      providers: [
-        
-        ChangeNotifierProvider<InternetBloc>(create: (context) => InternetBloc(),),
-        ChangeNotifierProvider<SignInBloc>(create: (context) => SignInBloc(),),
-        ChangeNotifierProvider<CommentsBloc>(create: (context) => CommentsBloc(),),
-        ChangeNotifierProvider<BookmarkBloc>(create: (context) => BookmarkBloc(),),
-        ChangeNotifierProvider<SearchBloc>(create: (context) => SearchBloc()),
-        ChangeNotifierProvider<FeaturedBloc>(create: (context) => FeaturedBloc()),
-        ChangeNotifierProvider<PopularBloc>(create: (context) => PopularBloc()),
-        ChangeNotifierProvider<RecentBloc>(create: (context) => RecentBloc()),
-        ChangeNotifierProvider<CategoriesBloc>(create: (context) => CategoriesBloc()),
-        ChangeNotifierProvider<AdsBloc>(create: (context) => AdsBloc()),
-        ChangeNotifierProvider<RelatedBloc>(create: (context) => RelatedBloc()),
-        ChangeNotifierProvider<TabIndexBloc>(create: (context) => TabIndexBloc()),
-        ChangeNotifierProvider<NotificationBloc>(create: (context) => NotificationBloc()),
-        ChangeNotifierProvider<CustomNotificationBloc>(create: (context) => CustomNotificationBloc()),
-        ChangeNotifierProvider<ArticleNotificationBloc>(create: (context) => ArticleNotificationBloc()),
-        ChangeNotifierProvider<VideosBloc>(create: (context) => VideosBloc()),
-        ChangeNotifierProvider<CategoryTab1Bloc>(create: (context) => CategoryTab1Bloc()),
-        ChangeNotifierProvider<CategoryTab2Bloc>(create: (context) => CategoryTab2Bloc()),
-        
-
-
-      ],
-      child: MaterialApp(
-          supportedLocales: context.supportedLocales,
-          localizationsDelegates: context.localizationDelegates,
-          locale: context.locale,
-          navigatorObservers: [firebaseObserver],
-          theme: ThemeModel().lightMode,
-          darkTheme: ThemeModel().darkMode,
-          themeMode: mode.darkTheme == true ? ThemeMode.dark : ThemeMode.light,
-          debugShowCheckedModeBanner: false,
-          home: SplashPage()),
-    ); 
+            providers: [
+              ChangeNotifierProvider<InternetBloc>(
+                create: (context) => InternetBloc(),
+              ),
+              ChangeNotifierProvider<SignInBloc>(
+                create: (context) => SignInBloc(),
+              ),
+              ChangeNotifierProvider<CommentsBloc>(
+                create: (context) => CommentsBloc(),
+              ),
+              ChangeNotifierProvider<BookmarkBloc>(
+                create: (context) => BookmarkBloc(),
+              ),
+              ChangeNotifierProvider<SearchBloc>(
+                  create: (context) => SearchBloc()),
+              ChangeNotifierProvider<FeaturedBloc>(
+                  create: (context) => FeaturedBloc()),
+              ChangeNotifierProvider<PopularBloc>(
+                  create: (context) => PopularBloc()),
+              ChangeNotifierProvider<RecentBloc>(
+                  create: (context) => RecentBloc()),
+              ChangeNotifierProvider<CategoriesBloc>(
+                  create: (context) => CategoriesBloc()),
+              ChangeNotifierProvider<AdsBloc>(create: (context) => AdsBloc()),
+              ChangeNotifierProvider<RelatedBloc>(
+                  create: (context) => RelatedBloc()),
+              ChangeNotifierProvider<TabIndexBloc>(
+                  create: (context) => TabIndexBloc()),
+              ChangeNotifierProvider<NotificationBloc>(
+                  create: (context) => NotificationBloc()),
+              ChangeNotifierProvider<CustomNotificationBloc>(
+                  create: (context) => CustomNotificationBloc()),
+              ChangeNotifierProvider<ArticleNotificationBloc>(
+                  create: (context) => ArticleNotificationBloc()),
+              ChangeNotifierProvider<VideosBloc>(
+                  create: (context) => VideosBloc()),
+              ChangeNotifierProvider<CategoryTab1Bloc>(
+                  create: (context) => CategoryTab1Bloc()),
+              ChangeNotifierProvider<CategoryTab2Bloc>(
+                  create: (context) => CategoryTab2Bloc()),
+            ],
+            child: MaterialApp(
+                supportedLocales: context.supportedLocales,
+                localizationsDelegates: context.localizationDelegates,
+                locale: context.locale,
+                navigatorObservers: [firebaseObserver],
+                theme: ThemeModel().lightMode,
+                darkTheme: ThemeModel().darkMode,
+                themeMode:
+                    mode.darkTheme == true ? ThemeMode.dark : ThemeMode.light,
+                debugShowCheckedModeBanner: false,
+                home:SplashPage(),
+               // initialRoute: '/',
+                onGenerateRoute: (settings) =>
+                    RouteGenerator.generateRoute(settings)),
+          );
         },
       ),
     );
-    
-    
+  }
+}
+
+class RouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    if(settings.name=='/chat') {
+     
+        
+          var arguments = settings.arguments;
+          if (arguments != null) {
+            return PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    ChatScreen(chatParams: arguments as ChatParams),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  animation =
+                      CurvedAnimation(curve: Curves.ease, parent: animation);
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                });
+          } else {
+            return pageNotFound();
+          }
+        }
+   
     
   }
+}
+
+MaterialPageRoute pageNotFound() {
+  return MaterialPageRoute(
+      builder: (context) => Scaffold(
+          appBar: AppBar(title: Text("Error"), centerTitle: true),
+          body: Center(
+            child: Text("Page not found"),
+          )));
 }

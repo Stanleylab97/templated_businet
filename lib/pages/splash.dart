@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
     final SignInBloc sb = context.read<SignInBloc>();
     Future.delayed(Duration(milliseconds: 1000)).then((value) {
       if (sb.isSignedIn == true || sb.guestUser == true) {
-        FirebaseFirestore.instance
+        /* FirebaseFirestore.instance
             .collection('users')
             .get()
             .then((QuerySnapshot querySnapshot) {
@@ -30,34 +30,28 @@ class _SplashPageState extends State<SplashPage> {
             if (doc.id == FirebaseAuth.instance.currentUser.uid) {
               print(doc["category"]);
               this.x = doc["category"].toString();
-              print('Rec: ${this.x}');
+              print('Rec: ${this.x}'); */
 
-              var t = this.x;
-              if (t == "Entrepreneur") {
-                print("Message: ${this.x}");
-                nextScreenReplace(context, HomePage());
-              } else {
-                nextScreenReplace(context, Dasshboard());
-              }
-            }
-          });
-        });
+       redirectUser();
+       
 
-        if (this.x == "Entrepreneur") {
-          print("Message: ${this.x}");
-          nextScreenReplace(context, HomePage());
-        } else {
-          nextScreenReplace(context, Dasshboard());
-        }
+        /*    });
+        }); */
+
       } else
         gotoSignInPage();
     });
   }
 
-  Future getCategory() async {
+  Future redirectUser() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    this.x = sp.getString('category');
-    print("Categorie: ${this.x}");
+    String cat= sp.getString('category');
+ if (cat == "Entrepreneur") {
+          print("Message: $cat");
+          nextScreenReplace(context, HomePage());
+        } else {
+          nextScreenReplace(context, Dasshboard());
+        }
   }
 
   gotoHomePage() {

@@ -33,7 +33,7 @@ class _ExploreState extends State<Explore>
 
   List<Tab> _tabs = [
     Tab(
-      text: "Tout".tr(),
+      text: "Actualité".tr(),
     ),
     Tab(
       text: "TalentTV",

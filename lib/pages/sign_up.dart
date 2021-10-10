@@ -94,7 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   afterSignUp() {
     if (widget.tag == null) {
-      nextScreenReplace(context, DonePage());
+      nextScreenReplace(context, DonePage(prev: "SignUp",));
     } else {
       Navigator.pop(context);
     }

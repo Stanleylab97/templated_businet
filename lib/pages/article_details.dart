@@ -312,7 +312,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                                             color: Colors.black87, size: 20),
                                         label: Text('commentaires',
                                                 style: TextStyle(
-                                                    color: Colors.black87))
+                                                    color: Colors.black87,fontSize: 16))
                                             .tr(),
                                         onPressed: () {
                                           //disposeAdmobbanner(); //admob

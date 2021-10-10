@@ -17,8 +17,8 @@ class SignInBloc extends ChangeNotifier {
   }
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final GoogleSignIn _googlSignIn = new GoogleSignIn();
-  final FacebookLogin _fbLogin = new FacebookLogin();
+  // final GoogleSignIn _googlSignIn = new GoogleSignIn();
+  //final FacebookLogin _fbLogin = new FacebookLogin();
   final String defaultUserImageUrl =
       'https://www.oxfordglobal.co.uk/nextgen-omics-series-us/wp-content/uploads/sites/16/2020/03/Jianming-Xu-e5cb47b9ddeec15f595e7000717da3fe.png';
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -47,7 +47,8 @@ class SignInBloc extends ChangeNotifier {
   String _category;
   String get category => _category;
 
-  String _imageUrl;
+  String _imageUrl =
+      'https://www.oxfordglobal.co.uk/nextgen-omics-series-us/wp-content/uploads/sites/16/2020/03/Jianming-Xu-e5cb47b9ddeec15f595e7000717da3fe.png';
   String get imageUrl => _imageUrl;
 
   String _signInProvider;
@@ -68,7 +69,7 @@ class SignInBloc extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future signInWithGoogle() async {
+  /* Future signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await _googlSignIn.signIn();
     if (googleUser != null) {
       try {
@@ -100,9 +101,9 @@ class SignInBloc extends ChangeNotifier {
       _hasError = true;
       notifyListeners();
     }
-  }
+  } */
 
-  Future signInwithFacebook() async {
+  /* Future signInwithFacebook() async {
     User currentUser;
     final FacebookLoginResult facebookLoginResult =
         await _fbLogin.logIn(['email', 'public_profile']);
@@ -144,7 +145,7 @@ class SignInBloc extends ChangeNotifier {
         notifyListeners();
       }
     }
-  }
+  } */
 
   Future signInWithApple() async {
     final _firebaseAuth = FirebaseAuth.instance;
@@ -233,6 +234,7 @@ class SignInBloc extends ChangeNotifier {
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
           this._category = documentSnapshot.data()['category'];
+          this._imageUrl = documentSnapshot.data()['image url'];
         } else {
           print('Document does not exist on the database');
         }
@@ -340,14 +342,15 @@ class SignInBloc extends ChangeNotifier {
   Future userSignout() async {
     if (_signInProvider == 'apple') {
       await _firebaseAuth.signOut();
-    } else if (_signInProvider == 'facebook') {
+    } /*  else if (_signInProvider == 'facebook') {
       await _firebaseAuth.signOut();
       await _fbLogin.logOut();
-    } else if (_signInProvider == 'email') {
+    } */
+    else if (_signInProvider == 'email') {
       await _firebaseAuth.signOut();
     } else {
       await _firebaseAuth.signOut();
-      await _googlSignIn.signOut();
+      // await _googlSignIn.signOut();
     }
   }
 

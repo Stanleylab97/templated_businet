@@ -7,10 +7,13 @@ import 'package:news_app/blocs/notification_bloc.dart';
 import 'package:news_app/pages/categories.dart';
 import 'package:news_app/pages/explore.dart';
 import 'package:news_app/pages/profile.dart';
+import 'package:news_app/pages/projets/listprojects.dart';
 import 'package:news_app/pages/videos.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:news_app/pages/projets/createproject.dart';
+
+import 'package:news_app/pages/chat/chatroom.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -26,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     Feather.home,
     Feather.message_circle,
     MdiIcons.accountHardHat,
-    MdiIcons.bullhorn,
+    //  MdiIcons.bullhorn,
     Feather.user
   ];
 
@@ -41,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 0)).then((value) async {
+    /* Future.delayed(Duration(milliseconds: 0)).then((value) async {
       final adb = context.read<AdsBloc>();
       await context
           .read<NotificationBloc>()
@@ -56,7 +59,7 @@ class _HomePageState extends State<HomePage> {
 
         }
       });
-    });
+    }); */
   }
 
   @override
@@ -82,12 +85,8 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(iconList[1]), label: 'Réseau'.tr()),
           BottomNavigationBarItem(
-              icon: Icon(
-                iconList[2],
-                size: 25,
-              ),
-              label: 'Projets'.tr()),
-          BottomNavigationBarItem(icon: Icon(iconList[4]), label: 'Profil'.tr())
+              icon: Icon(iconList[2]), label: 'Projets'.tr()),
+          BottomNavigationBarItem(icon: Icon(iconList[3]), label: 'Profil'.tr())
         ],
       ),
       body: PageView(
@@ -96,8 +95,8 @@ class _HomePageState extends State<HomePage> {
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Explore(),
-          Placeholder(),
-          CreateProject(),
+          ChatRoom(),
+          Projets(), //CreateProject(),
           //Categories(),
           ProfilePage()
         ],

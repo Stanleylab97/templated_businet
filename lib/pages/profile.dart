@@ -49,21 +49,17 @@ class _ProfilePageState extends State<ProfilePage>
     final sb = context.watch<SignInBloc>();
     return Scaffold(
         appBar: AppBar(
-          title: Text('profil').tr(),
+          title: Text('profile').tr(),
           centerTitle: false,
         ),
         body: ListView(
           padding: EdgeInsets.fromLTRB(15, 20, 20, 50),
           children: [
-            // sb.guestUser == true ?
-            // GuestUserUI() ,
             UserUI(),
-
             Text(
               "Paramètres généraux",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ).tr(),
-
             SizedBox(
               height: 15,
             ),
@@ -83,7 +79,6 @@ class _ProfilePageState extends State<ProfilePage>
               ),
               onTap: () => nextScreen(context, BookmarkPage()),
             ),
-
             Divider(
               height: 3,
             ),
@@ -104,7 +99,6 @@ class _ProfilePageState extends State<ProfilePage>
                     context.read<ThemeBloc>().toggleTheme();
                   }),
             ),
-
             Divider(
               height: 3,
             ),
@@ -118,12 +112,12 @@ class _ProfilePageState extends State<ProfilePage>
                     borderRadius: BorderRadius.circular(5)),
                 child: Icon(LineIcons.bell, size: 22, color: Colors.white),
               ),
-              trailing: Switch(
+              trailing: Text('OK')/* Switch(
                   activeColor: Theme.of(context).primaryColor,
                   value: context.watch<NotificationBloc>().subscribed,
                   onChanged: (bool) {
                     context.read<NotificationBloc>().fcmSubscribe(bool);
-                  }),
+                  }) */,
             ),
             Divider(
               height: 3,
@@ -148,7 +142,6 @@ class _ProfilePageState extends State<ProfilePage>
             Divider(
               height: 3,
             ),
-
             ListTile(
               title: Text('language').tr(),
               leading: Container(
@@ -168,7 +161,6 @@ class _ProfilePageState extends State<ProfilePage>
             Divider(
               height: 3,
             ),
-
             ListTile(
               title: Text('rate this app').tr(),
               leading: Container(
@@ -189,7 +181,6 @@ class _ProfilePageState extends State<ProfilePage>
             Divider(
               height: 3,
             ),
-
             ListTile(
               title: Text('licence').tr(),
               leading: Container(
@@ -209,7 +200,6 @@ class _ProfilePageState extends State<ProfilePage>
             Divider(
               height: 3,
             ),
-
             ListTile(
               title: Text('privacy policy').tr(),
               leading: Container(
@@ -231,7 +221,6 @@ class _ProfilePageState extends State<ProfilePage>
             Divider(
               height: 3,
             ),
-
             ListTile(
               title: Text('A propos de nous').tr(),
               leading: Container(
@@ -299,16 +288,17 @@ class UserUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sb = context.watch<SignInBloc>();
+    print('ImageUrl: ${sb.imageUrl}');
     return Column(
       children: [
-        /*    Container(
+        Container(
           height: 200,
           child: Column(
             children: [
-              CircleAvatar(
+                CircleAvatar(
                   radius: 60,
                   backgroundColor: Colors.grey[300],
-                  backgroundImage: CachedNetworkImageProvider(sb.imageUrl)),
+                  backgroundImage: CachedNetworkImageProvider(sb.imageUrl)), 
               SizedBox(
                 height: 15,
               ),
@@ -318,7 +308,7 @@ class UserUI extends StatelessWidget {
               )
             ],
           ),
-        ), */
+        ),
         ListTile(
           title: Text(sb.email),
           leading: Container(

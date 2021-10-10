@@ -19,38 +19,22 @@ class IntroPage extends StatefulWidget {
 }
 
 class _IntroPageState extends State<IntroPage> {
-  String x;
+  
   void afterIntroComplete() {
     final SignInBloc sb = Provider.of<SignInBloc>(context, listen: false);
     sb.setSignIn();
-    // getCategory();
-
-    // var document =  FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser.uid).get();
-    FirebaseFirestore.instance
-        .collection('users')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        if (doc.id == FirebaseAuth.instance.currentUser.uid) {
-          print(doc["category"]);
-          this.x = doc["category"].toString();
-          print('Rec: ${this.x}');
-          if (this.x == "Entrepreneur") {
-            print("Message: ${this.x}");
-            nextScreenReplace(context, HomePage());
-          } else {
-            nextScreenReplace(context, Dasshboard());
-          }
-        }
-      });
-    });
+     redirectUser();
   }
 
-  Future getCategory() async {
+  Future redirectUser() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    this.x = sp.getString('category');
-    String y = this.x;
-    print("Categorie: $y");
+    String cat = sp.getString('category');
+    if (cat == "Entrepreneur") {
+      print("Message: $cat");
+      nextScreenReplace(context, HomePage());
+    } else {
+      nextScreenReplace(context, Dasshboard());
+    }
   }
 
   @override

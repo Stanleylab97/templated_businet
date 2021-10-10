@@ -1,6 +1,9 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:news_app/pages/projets/widgets/project_card.dart';
+import 'package:news_app/pages/projets/widgets/projets_state_card.dart';
+import 'package:news_app/widgets/circle_button.dart';
 import './createproject.dart';
 
 class Projets extends StatefulWidget {
@@ -41,7 +44,7 @@ class _ProjetsState extends State<Projets> {
             CategoryCard(
               'Tout',
               'assets/icons/all.png',
-              Palette.kBlueColor,
+              Color(0xff4B7FFB),
             ),
             SizedBox(
               width: 10,
@@ -49,7 +52,7 @@ class _ProjetsState extends State<Projets> {
             CategoryCard(
               'En cours',
               'assets/icons/processing.png',
-              Palette.kYellowColor,
+              Color(0xffFFB167),
             ),
             SizedBox(
               width: 10,
@@ -57,7 +60,7 @@ class _ProjetsState extends State<Projets> {
             CategoryCard(
               'Terminés',
               'assets/icons/end.png',
-              Palette.kOrangeColor,
+              Color(0xffEF716B),
             ),
             SizedBox(
               width: 30,
@@ -126,7 +129,6 @@ class _ProjetsState extends State<Projets> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: Icon(Icons.),
           title: Text('Projets', style: TextStyle(color: Colors.black)),
           centerTitle: true,
           actions: [
@@ -198,4 +200,3 @@ class _ProjetsState extends State<Projets> {
             foregroundColor: Colors.red[400]));
   }
 }
- */

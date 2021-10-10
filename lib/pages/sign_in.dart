@@ -58,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
 
       await ib.checkInternet();
       if (ib.hasInternet == false) {
-        openSnacbar(_scaffoldKey, 'Pas de connexion internet'.tr());
+        openSnacbar(_scaffoldKey, 'no internet'.tr());
       } else {
         setState(() {
           signInStart = true;
@@ -89,7 +89,7 @@ class _SignInPageState extends State<SignInPage> {
 
   afterSignIn() {
     if (widget.tag == null) {
-      nextScreenReplace(context, DonePage());
+      nextScreenReplace(context, DonePage(prev: "SignIn",));
     } else {
       Navigator.pop(context);
     }
