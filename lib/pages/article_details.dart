@@ -191,7 +191,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                                           }),
                                       IconButton(
                                           icon: BuildBookmarkIcon(
-                                              collectionName: 'contents',
+                                              collectionName: 'TalentsTV',
                                               uid: sb.uid,
                                               timestamp: d.timestamp),
                                           onPressed: () {
@@ -287,7 +287,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                                   Row(
                                     children: <Widget>[
                                       LoveCount(
-                                          collectionName: 'contents',
+                                          collectionName: 'TalentsTV',
                                           timestamp: d.timestamp),
                                       SizedBox(
                                         width: 10,

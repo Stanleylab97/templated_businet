@@ -17,22 +17,18 @@ class CategoryTab2 extends StatefulWidget {
 }
 
 class _CategoryTab2State extends State<CategoryTab2> {
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    if(this.mounted){
-      context.read<CategoryTab2Bloc>().data.isNotEmpty ? print('data already loaded'):
-      context.read<CategoryTab2Bloc>().getData(mounted, widget.category);
-  
+    if (this.mounted) {
+      /*     context.read<CategoryTab2Bloc>().data.isNotEmpty ?*/ print(
+          'data already loaded'); //:
+      // context.read<CategoryTab2Bloc>().getData(mounted, widget.category);
+
     }
-    
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +61,8 @@ class _CategoryTab2State extends State<CategoryTab2> {
               shrinkWrap: true,
               itemBuilder: (_, int index) {
                 if (index < cb.data.length) {
-                  if(index %2 == 0 && index != 0) return Card1(d: cb.data[index], heroTag: 'tab2$index');
+                  if (index % 2 == 0 && index != 0)
+                    return Card1(d: cb.data[index], heroTag: 'tab2$index');
                   return Card2(d: cb.data[index], heroTag: 'tab2$index');
                 }
                 return Opacity(

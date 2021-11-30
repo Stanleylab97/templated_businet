@@ -199,7 +199,7 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
                                 Spacer(),
                                 IconButton(
                                     icon: BuildLoveIcon(
-                                        collectionName: 'contents',
+                                        collectionName: 'TalentsTV',
                                         uid: sb.uid,
                                         timestamp: d.timestamp),
                                     onPressed: () {
@@ -207,7 +207,7 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
                                     }),
                                 IconButton(
                                     icon: BuildBookmarkIcon(
-                                        collectionName: 'contents',
+                                        collectionName: 'TalentsTV',
                                         uid: sb.uid,
                                         timestamp: d.timestamp),
                                     onPressed: () {
@@ -298,8 +298,9 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
                             Row(
                               children: <Widget>[
                                 LoveCount(
-                                    collectionName: 'contents',
+                                    collectionName: 'TalentsTV',
                                     timestamp: d.timestamp),
+                                    
                                 SizedBox(
                                   width: 10,
                                 ),

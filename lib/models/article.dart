@@ -45,7 +45,7 @@ class Article {
       loves: d['loves'],
       sourceUrl: d['source'],
       date: d['date'],
-      timestamp: d['timestamp'], 
+      timestamp: d['timestamp'].toString(), 
 
 
     );

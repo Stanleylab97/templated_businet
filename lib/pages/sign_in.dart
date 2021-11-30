@@ -13,8 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SignInPage extends StatefulWidget {
-  final String tag;
-  SignInPage({Key key, this.tag}) : super(key: key);
+  final String tag,category;
+  SignInPage({Key key, this.tag,this.category}) : super(key: key);
 
   @override
   _SignInPageState createState() => _SignInPageState();
@@ -55,7 +55,7 @@ class _SignInPageState extends State<SignInPage> {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
       FocusScope.of(context).requestFocus(new FocusNode());
-
+  
       await ib.checkInternet();
       if (ib.hasInternet == false) {
         openSnacbar(_scaffoldKey, 'no internet'.tr());
@@ -89,7 +89,11 @@ class _SignInPageState extends State<SignInPage> {
 
   afterSignIn() {
     if (widget.tag == null) {
-      nextScreenReplace(context, DonePage(prev: "SignIn",));
+      nextScreenReplace(
+          context,
+          DonePage(
+            prev: "SignIn",
+          ));
     } else {
       Navigator.pop(context);
     }
@@ -232,7 +236,7 @@ class _SignInPageState extends State<SignInPage> {
                                   color: Theme.of(context).primaryColor))
                           .tr(),
                       onPressed: () {
-                        nextScreenReplace(context, SignUpPage());
+                        nextScreenReplace(context, SignUpPage(category:widget.category));
                       },
                     )
                   ],

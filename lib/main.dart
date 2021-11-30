@@ -13,6 +13,7 @@ import 'package:news_app/blocs/documentaires.dart';
 import 'package:news_app/blocs/comments_bloc.dart';
 import 'package:news_app/blocs/custom_notification_bloc.dart';
 import 'package:news_app/blocs/featured_bloc.dart';
+import 'package:news_app/pages/entrepreneur/posts/widgets/home_bloc.dart';
 import 'package:news_app/blocs/internet_bloc.dart';
 import 'package:news_app/blocs/notification_bloc.dart';
 import 'package:news_app/blocs/popular_articles_bloc.dart';
@@ -64,6 +65,9 @@ class MyApp extends StatelessWidget {
         builder: (_, mode, child) {
           return MultiProvider(
             providers: [
+              ChangeNotifierProvider<HomeBLoC>(
+                create: (context) => HomeBLoC(),
+              ),
               ChangeNotifierProvider<InternetBloc>(
                 create: (context) => InternetBloc(),
               ),
@@ -114,8 +118,8 @@ class MyApp extends StatelessWidget {
                 themeMode:
                     mode.darkTheme == true ? ThemeMode.dark : ThemeMode.light,
                 debugShowCheckedModeBanner: false,
-                home:SplashPage(),
-               // initialRoute: '/',
+                home: SplashPage(),
+                // initialRoute: '/',
                 onGenerateRoute: (settings) =>
                     RouteGenerator.generateRoute(settings)),
           );
@@ -127,29 +131,25 @@ class MyApp extends StatelessWidget {
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    if(settings.name=='/chat') {
-     
-        
-          var arguments = settings.arguments;
-          if (arguments != null) {
-            return PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    ChatScreen(chatParams: arguments as ChatParams),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  animation =
-                      CurvedAnimation(curve: Curves.ease, parent: animation);
-                  return FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  );
-                });
-          } else {
-            return pageNotFound();
-          }
-        }
-   
-    
+    if (settings.name == '/chat') {
+      var arguments = settings.arguments;
+      if (arguments != null) {
+        return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                ChatScreen(chatParams: arguments as ChatParams),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              animation =
+                  CurvedAnimation(curve: Curves.ease, parent: animation);
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            });
+      } else {
+        return pageNotFound();
+      }
+    }
   }
 }
 

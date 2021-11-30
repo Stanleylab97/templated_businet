@@ -46,13 +46,13 @@ class _SplashPageState extends State<SplashPage> {
   Future redirectUser() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     String cat= sp.getString('category');
- if (cat == "Entrepreneur") {
-          print("Message: $cat");
-          nextScreenReplace(context, HomePage());
-        } else {
-          nextScreenReplace(context, Dasshboard());
-        }
-  }
+    if (cat == "Entrepreneur") {
+        print("Message: $cat");
+        nextScreenReplace(context, HomePage());
+            } else {
+              nextScreenReplace(context, Dasshboard());
+            }
+    }
 
   gotoHomePage() {
     final SignInBloc sb = context.read<SignInBloc>();

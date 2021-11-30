@@ -51,9 +51,9 @@ class _ExploreState extends State<Explore>
       context.read<TabIndexBloc>().setTabIndex(_tabController.index);
     });
     Future.delayed(Duration(milliseconds: 0)).then((value) {
+      /*context.read<PopularBloc>().getData();
       context.read<FeaturedBloc>().getData();
-      context.read<PopularBloc>().getData();
-      context.read<RecentBloc>().getData(mounted);
+      context.read<RecentBloc>().getData(mounted);*/
     });
   }
 

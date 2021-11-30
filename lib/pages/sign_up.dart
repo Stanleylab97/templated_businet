@@ -11,8 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SignUpPage extends StatefulWidget {
-  final String tag;
-  SignUpPage({Key key, this.tag}) : super(key: key);
+  final String tag,category;
+  SignUpPage({Key key, this.tag,this.category}) : super(key: key);
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -23,11 +23,12 @@ class _SignUpPageState extends State<SignUpPage> {
   Icon lockIcon = LockIcon().lock;
   var emailCtrl = TextEditingController();
   var passCtrl = TextEditingController();
+  var passvCtrl = TextEditingController();
   var nameCtrl = TextEditingController();
   var formKey = GlobalKey<FormState>();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  List categories = ['Entrepreneur', 'Investisseur'];
+  //List categories = ['Entrepreneur', 'Investisseur'];
   List secteurs = ['Agriculture', 'Humanitaire', 'Informatique'];
 
   String categoryChoose;
@@ -67,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
           signUpStarted = true;
         });
         sb
-            .signUpwithEmailPassword(name, email, pass, categoryChoose)
+            .signUpwithEmailPassword(name, email, pass, widget.category)
             .then((_) async {
           if (sb.hasError == false) {
             sb.getTimestamp().then((value) => sb
@@ -94,7 +95,11 @@ class _SignUpPageState extends State<SignUpPage> {
 
   afterSignUp() {
     if (widget.tag == null) {
-      nextScreenReplace(context, DonePage(prev: "SignUp",));
+      nextScreenReplace(
+          context,
+          DonePage(
+            prev: "SignUp",
+          ));
     } else {
       Navigator.pop(context);
     }
@@ -207,43 +212,30 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  padding: EdgeInsets.only(left: 16, right: 16),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                      borderRadius: BorderRadius.circular(35.0)),
-                  child: DropdownButton(
-                      hint: Text(
-                        'Selectionnez votre secteur',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).secondaryHeaderColor),
-                      ),
-                      dropdownColor: Colors.white,
-                      icon: Icon(Icons.arrow_drop_down),
-                      iconSize: 30,
-                      isExpanded: true,
-                      underline: SizedBox(),
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Theme.of(context).secondaryHeaderColor),
-                      value: categoryChoose,
-                      onChanged: (newValue) {
-                        setState(() {
-                          categoryChoose = newValue;
-                        });
-                      },
-                      items: categories.map((valueItem) {
-                        return DropdownMenuItem(
-                            value: valueItem,
-                            child: Text(
-                              valueItem,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color:
-                                      Theme.of(context).secondaryHeaderColor),
-                            ));
-                      }).toList()),
+                TextFormField(
+                  controller: passvCtrl,
+                  obscureText: offsecureText,
+                  decoration: InputDecoration(
+                    labelText: 'Vérification du mot de passe',
+                    hintText: 'Veuillez vérifier votre mot de passe',
+                    suffixIcon: IconButton(
+                        icon: lockIcon,
+                        onPressed: () {
+                          lockPressed();
+                        }),
+                  ),
+                  validator: (String value) {
+                    if (value.length == 0)
+                      return "Le mot de passe ne peut rester vide";
+                    if (value != passCtrl.value.text)
+                      return "Les mots de passe ne sont pas identiques";
+                    return null;
+                  },
+                  onChanged: (String value) {
+                    setState(() {
+                      pass = value;
+                    });
+                  },
                 ),
                 SizedBox(
                   height: 50,

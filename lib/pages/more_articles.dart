@@ -27,7 +27,7 @@ class _MoreArticlesState extends State<MoreArticles> {
 
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final String collectionName = 'contents';
+  final String collectionName = 'Talents';
   ScrollController controller;
   DocumentSnapshot _lastVisible;
   bool _isLoading;

@@ -72,7 +72,7 @@ class BookmarkBloc extends ChangeNotifier {
 
   Future onLoveIconClick(String timestamp) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String _collectionName = 'contents';
+    final String _collectionName = 'TalentsTV';
     String _uid = sp.getString('uid');
     String _fieldName = 'loved items';
 

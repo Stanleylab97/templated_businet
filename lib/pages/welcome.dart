@@ -5,7 +5,6 @@ import 'package:news_app/blocs/internet_bloc.dart';
 import 'package:news_app/blocs/sign_in_bloc.dart';
 import 'package:news_app/config/config.dart';
 import 'package:news_app/pages/done.dart';
-import 'package:news_app/pages/sign_up.dart';
 import 'package:news_app/pages/sign_in.dart';
 import 'package:news_app/utils/app_name.dart';
 import 'package:news_app/utils/next_screen.dart';
@@ -299,7 +298,8 @@ class _WelcomePageState extends State<WelcomePage> {
                     padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                     child: FlatButton(
                         onPressed: () {
-                          nextScreen(context, SignInPage());
+                            Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => SignInPage(category: "Investisseur")));
                         },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(topLeft:Radius.circular(20) ,topRight: Radius.circular(20), bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))),
@@ -319,7 +319,8 @@ class _WelcomePageState extends State<WelcomePage> {
                     padding: EdgeInsets.only(top: 10, right: 20, left: 20),
                     child: FlatButton(
                         onPressed: () {
-                          nextScreen(context, SignInPage());
+                           Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => SignInPage(category: "Entrepreneur")));
                         },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(topLeft:Radius.circular(20) ,topRight: Radius.circular(20), bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))),

@@ -15,8 +15,7 @@ class RelatedBloc extends ChangeNotifier{
     _data.clear();
     QuerySnapshot rawData;
       rawData = await firestore
-          .collection('contents')
-          .where('category', isEqualTo: category)
+          .collection('TalentsTV')
           .where('timestamp', isNotEqualTo: timestamp)
           .orderBy('timestamp')
           .limit(5)

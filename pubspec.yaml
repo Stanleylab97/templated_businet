@@ -95,6 +95,10 @@ flutter:
     - assets/icons/
     - assets/translations/
     - assets/images/
+    - assets/images/linkedin/icons/
+    - assets/images/linkedin/users/
+    - assets/images/linkedin/posts/
+    
   fonts:
 
     - family: Poppins

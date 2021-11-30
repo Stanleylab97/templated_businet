@@ -3,8 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/article.dart';
 
-class CategoryTab1Bloc extends ChangeNotifier{
-  
+class CategoryTab1Bloc extends ChangeNotifier {
   List<Article> _data = [];
   List<Article> get data => _data;
 
@@ -20,29 +19,22 @@ class CategoryTab1Bloc extends ChangeNotifier{
   bool _hasData;
   bool get hasData => _hasData;
 
-
   Future<Null> getData(mounted, String category) async {
     QuerySnapshot rawData;
-    
+
     if (_lastVisible == null)
       rawData = await firestore
-          .collection('TalentsTV').doc("").collection("")
-          .where('content type', isEqualTo: category)
+          .collection('TalentsTV')
           .orderBy('timestamp', descending: true)
           .limit(4)
           .get();
     else
       rawData = await firestore
-          .collection('TalentsTV').doc("").collection("")
-           .where('content type', isEqualTo: category)
+          .collection('TalentsTV')
           .orderBy('timestamp', descending: true)
           .startAfter([_lastVisible['timestamp']])
           .limit(4)
           .get();
-
-
-
-
 
     if (rawData != null && rawData.docs.length > 0) {
       _lastVisible = rawData.docs[rawData.docs.length - 1];
@@ -53,36 +45,24 @@ class CategoryTab1Bloc extends ChangeNotifier{
         notifyListeners();
       }
     } else {
-
-      if(_lastVisible == null){
-
+      if (_lastVisible == null) {
         _isLoading = false;
         _hasData = false;
         print('no items');
-
-      }else{
+      } else {
         _isLoading = false;
         _hasData = true;
         print('no more items');
       }
-      
     }
     notifyListeners();
     return null;
   }
 
-
-  
-
-
-
   setLoading(bool isloading) {
     _isLoading = isloading;
     notifyListeners();
   }
-
-
-
 
   onRefresh(mounted, String category) {
     _isLoading = true;
@@ -92,7 +72,4 @@ class CategoryTab1Bloc extends ChangeNotifier{
     getData(mounted, category);
     notifyListeners();
   }
-
-
-
 }

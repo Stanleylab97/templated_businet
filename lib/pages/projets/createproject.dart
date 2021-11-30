@@ -14,10 +14,12 @@ class _CreateProjectState extends State<CreateProject> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _autovalidate;
   TextEditingController _titreController;
   TextEditingController _fondController;
   TextEditingController _description;
+  String username;
 
   @override
   void initState() {
@@ -126,6 +128,21 @@ class _CreateProjectState extends State<CreateProject> {
     return null;
   }
 
+  void openSnacbar(_scaffoldKey, snacMessage) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Container(
+        alignment: Alignment.centerLeft,
+        height: 60,
+        child: Text(
+          snacMessage,
+          style: TextStyle(
+            fontSize: 14,
+          ),
+        ),
+      ),
+    ));
+  }
+
   Future<void> _validateFormAndLogin() async {
     // Get form state from the global key
     var formState = _key.currentState;
@@ -138,7 +155,7 @@ class _CreateProjectState extends State<CreateProject> {
         "needAmount": int.parse(_fondController.text),
         "createdAt": FieldValue.serverTimestamp(),
         "description": _description.text,
-        "createdBy": prefs.get('USERNAMEKEY')
+        "createdBy": prefs.get('name')
       };
 
       firestore
@@ -148,15 +165,14 @@ class _CreateProjectState extends State<CreateProject> {
                 _titreController.clear();
                 _fondController.clear();
                 _description.clear();
-               /*  context.showSuccessBar(
-                    content: Text('Le projet a bien été sauvegardé')); */
-                Navigator.pop(context);
+                openSnacbar(_scaffoldKey, "Le projet a bien été publié");
+               
               })
           .catchError((error) => () {
-                var snackBar =
-                    SnackBar(content: Text('Erreur lors de l\'enregistrement'));
-              //  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }); 
+             openSnacbar(_scaffoldKey, "Un problème est survenu lors de l'enregistrement");
+              });
+
+      Navigator.pop(context);
     } else {
       // show validation errors
       // setState forces our [State] to rebuild

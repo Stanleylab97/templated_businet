@@ -149,7 +149,7 @@ class _ProjetsState extends State<Projets> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                Padding(
+                /* Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
                     'Catégories',
@@ -159,14 +159,14 @@ class _ProjetsState extends State<Projets> {
                       fontSize: 18,
                     ),
                   ),
-                ),
+                ), */
                 SizedBox(
                   height: size.height * 0.01,
                 ),
-                buildCategoryList(),
+                /*  buildCategoryList(),
                 SizedBox(
                   height: size.height * 0.005,
-                ),
+                ), */
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
