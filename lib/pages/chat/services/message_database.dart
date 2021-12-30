@@ -25,7 +25,7 @@ class MessageDatabaseService {
         .snapshots().map(_messageListFromSnapshot);
   }
 
-  void onSendMessage(String groupChatId, Message message) {
+  void  onSendMessage(String groupChatId, Message message) {
     var documentReference = FirebaseFirestore.instance
         .collection('messages')
         .doc(groupChatId)

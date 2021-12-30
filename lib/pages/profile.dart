@@ -11,6 +11,7 @@ import 'package:news_app/pages/welcome.dart';
 import 'package:news_app/widgets/language.dart';
 import 'package:news_app/widgets/launch_url.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../blocs/sign_in_bloc.dart';
 import '../config/config.dart';
@@ -112,12 +113,14 @@ class _ProfilePageState extends State<ProfilePage>
                     borderRadius: BorderRadius.circular(5)),
                 child: Icon(LineIcons.bell, size: 22, color: Colors.white),
               ),
-              trailing: Text('OK')/* Switch(
+              trailing: Text(
+                  'OK') /* Switch(
                   activeColor: Theme.of(context).primaryColor,
                   value: context.watch<NotificationBloc>().subscribed,
                   onChanged: (bool) {
                     context.read<NotificationBloc>().fcmSubscribe(bool);
-                  }) */,
+                  }) */
+              ,
             ),
             Divider(
               height: 3,
@@ -283,22 +286,24 @@ class GuestUserUI extends StatelessWidget {
 }
 
 class UserUI extends StatelessWidget {
-  const UserUI({Key key}) : super(key: key);
+  //String profilUrl;
+  UserUI({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final sb = context.watch<SignInBloc>();
-    print('ImageUrl: ${sb.imageUrl}');
+    
     return Column(
       children: [
         Container(
           height: 200,
           child: Column(
             children: [
-                CircleAvatar(
+              CircleAvatar(
                   radius: 60,
                   backgroundColor: Colors.grey[300],
-                  backgroundImage: CachedNetworkImageProvider(sb.imageUrl)), 
+                  backgroundImage: CachedNetworkImageProvider(
+                      "${sb.imageUrl}")),
               SizedBox(
                 height: 15,
               ),

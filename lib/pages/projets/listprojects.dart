@@ -5,6 +5,7 @@ import 'package:news_app/pages/projets/widgets/project_card.dart';
 import 'package:news_app/pages/projets/widgets/projets_state_card.dart';
 import 'package:news_app/widgets/circle_button.dart';
 import './createproject.dart';
+import 'package:news_app/config/utils.dart' as duration;
 
 class Projets extends StatefulWidget {
   @override
@@ -70,8 +71,8 @@ class _ProjetsState extends State<Projets> {
       );
     }
 
-    buildProjectWidget(
-        String nom, String author, String description, int amount) {
+    buildProjectWidget(String nom, String createdAt, String author,
+        String description, int amount, String secteur) {
       final f = new DateFormat('dd-MM-yyyy HH:mm');
       /* f
             .format(DateTime.fromMillisecondsSinceEpoch(
@@ -83,7 +84,8 @@ class _ProjetsState extends State<Projets> {
           author,
           description,
           amount,
-          Color(0xff4B7FFB),
+          secteur,
+          createdAt,
         ),
         SizedBox(
           height: 5,
@@ -92,38 +94,37 @@ class _ProjetsState extends State<Projets> {
     }
 
     buildDoctorList(BuildContext context) {
-      return Expanded(
-          child: SingleChildScrollView(
-              child: Container(
-                  height: MediaQuery.of(context).size.height * .49,
-                  child: StreamBuilder(
-                      stream: firestore.collection("Projects").snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Text(
-                              'Veuillez réessayer plus tard. Un léger soucis de connexion');
-                        }
+      return SingleChildScrollView(
+          child: Container(
+              height: MediaQuery.of(context).size.height * .69,
+              child: StreamBuilder(
+                  stream: firestore.collection("Projects").snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text(
+                          'Veuillez réessayer plus tard. Un léger soucis de connexion');
+                    }
 
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
 
-                        return Expanded(
-                          child: Center(
-                            child: ListView.builder(
-                              itemCount: snapshot.data.docs.length,
-                              itemBuilder: (context, index) {
-                                return buildProjectWidget(
-                                    snapshot.data.docs[index]['nom'],
-                                    snapshot.data.docs[index]['createdBy'],
-                                    snapshot.data.docs[index]['description'],
-                                    snapshot.data.docs[index]['needAmount']);
-                              },
-                            ),
-                          ),
-                        );
-                      }))));
+                    return ListView.builder(
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (context, index) {
+                        var x = snapshot.data.docs[index]['createdAt'];
+                        print("CreatedAt: $x");
+                        return buildProjectWidget(
+                            snapshot.data.docs[index]['nom'],
+                            duration.Utils.getPublishedDateFromTimestamp(
+                                snapshot.data.docs[index]['createdAt']),
+                            snapshot.data.docs[index]['createdBy'],
+                            snapshot.data.docs[index]['description'],
+                            snapshot.data.docs[index]['needAmount'],
+                            snapshot.data.docs[index]['secteur']);
+                      },
+                    );
+                  })));
     }
 
     return Scaffold(
@@ -149,24 +150,9 @@ class _ProjetsState extends State<Projets> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                /* Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Text(
-                    'Catégories',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff1E1C61),
-                      fontSize: 18,
-                    ),
-                  ),
-                ), */
                 SizedBox(
                   height: size.height * 0.01,
                 ),
-                /*  buildCategoryList(),
-                SizedBox(
-                  height: size.height * 0.005,
-                ), */
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Text(

@@ -44,6 +44,12 @@ class SignInBloc extends ChangeNotifier {
   String _email;
   String get email => _email;
 
+  FieldValue _lastseen;
+  FieldValue get lastseen => _lastseen;
+
+  String _status;
+  String get status => _status;
+
   String _category;
   String get category => _category;
 
@@ -205,6 +211,8 @@ class SignInBloc extends ChangeNotifier {
       this._uid = user.uid;
       this._imageUrl = defaultUserImageUrl;
       this._email = user.email;
+      this._status = "Offline";
+      this._lastseen = FieldValue.serverTimestamp();
       this._signInProvider = 'email';
       this._category = category;
 
@@ -267,6 +275,8 @@ class SignInBloc extends ChangeNotifier {
       'name': _name,
       'email': _email,
       'uid': _uid,
+      'status': _status,
+      'lastseen':FieldValue.serverTimestamp().toString(),
       'image url': _imageUrl,
       'category': _category,
       'timestamp': timestamp,
@@ -274,6 +284,7 @@ class SignInBloc extends ChangeNotifier {
       'bookmarked items': []
     };
     await ref.set(userData);
+    print('Data save to FB');
   }
 
   Future getTimestamp() async {

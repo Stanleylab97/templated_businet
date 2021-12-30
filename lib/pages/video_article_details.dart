@@ -122,7 +122,7 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
         body: SafeArea(
           bottom: false,
           top: true,
-          child: YoutubePlayerBuilder(
+          child: YoutubePlayerBuilder(  
               player: YoutubePlayer(
                 controller: _controller,
                 showVideoProgressIndicator: true,
@@ -222,7 +222,7 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
                               children: <Widget>[
                                 Icon(CupertinoIcons.time_solid,
                                     size: 18, color: Colors.grey),
-                                SizedBox(
+                                SizedBox( 
                                   width: 5,
                                 ),
                                 Text(
@@ -297,10 +297,10 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
                             ),
                             Row(
                               children: <Widget>[
-                                LoveCount(
+                                 LoveCount(
                                     collectionName: 'TalentsTV',
                                     timestamp: d.timestamp),
-                                    
+                               
                                 SizedBox(
                                   width: 10,
                                 ),
@@ -319,8 +319,9 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
                                   icon: Icon(Icons.comment,
                                       color: Colors.black87, size: 20),
                                   label: Text('commentaires',
-                                          style:
-                                              TextStyle(color: Colors.black87,fontSize: 13))
+                                          style: TextStyle(
+                                              color: Colors.black87,
+                                              fontSize: 13))
                                       .tr(),
                                   onPressed: () {
                                     _controller.pause();

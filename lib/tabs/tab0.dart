@@ -17,37 +17,18 @@ class _Tab0State extends State<Tab0> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeBLoC>(context, listen: false);
-    
+
     return RefreshIndicator(
-      onRefresh: () async {
-        context.read<FeaturedBloc>().onRefresh();
-        context.read<PopularBloc>().onRefresh();
-        context.read<RecentBloc>().onRefresh(mounted);
-      },
-      child: /* SingleChildScrollView(
-        key: PageStorageKey('key0'),
-        padding: EdgeInsets.all(0),
-        physics: AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            //Center(child: Text("Hello"))
-            NewPost(),
-            ListPost()
-            // SearchBar(),
-            //Featured(),
-            //PopularArticles(),
-            //RecentArticles()
-          ],
-        ),
-      ),
-    ); */
-    
-      Positioned.fill(
-      child: CustomScrollView(
-        controller: provider.controller,
-        slivers: [NewPost(), const ListPost()],
-      ),
-    ));
-  
+        onRefresh: () async {
+          context.read<FeaturedBloc>().onRefresh();
+          context.read<PopularBloc>().onRefresh();
+          context.read<RecentBloc>().onRefresh(mounted);
+        },
+        child: Positioned.fill(
+          child: CustomScrollView(
+            controller: provider.controller,
+            slivers: [NewPost(), const ListPost()],
+          ),
+        ));
   }
 }

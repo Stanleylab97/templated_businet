@@ -155,7 +155,9 @@ class _CreateProjectState extends State<CreateProject> {
         "needAmount": int.parse(_fondController.text),
         "createdAt": FieldValue.serverTimestamp(),
         "description": _description.text,
-        "createdBy": prefs.get('name')
+        "secteur": "Agriculture",
+        "createdBy": prefs.get('name'),
+        "status": "PENDING_INVESTISMENT"
       };
 
       firestore
@@ -166,12 +168,12 @@ class _CreateProjectState extends State<CreateProject> {
                 _fondController.clear();
                 _description.clear();
                 openSnacbar(_scaffoldKey, "Le projet a bien été publié");
-               
               })
           .catchError((error) => () {
-             openSnacbar(_scaffoldKey, "Un problème est survenu lors de l'enregistrement");
+                openSnacbar(_scaffoldKey,
+                    "Un problème est survenu lors de l'enregistrement");
               });
-
+      Future.delayed(const Duration(microseconds: 3000));
       Navigator.pop(context);
     } else {
       // show validation errors

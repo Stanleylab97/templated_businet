@@ -78,7 +78,7 @@ class _NewPostInput extends StatelessWidget {
               decoration: BoxDecoration(),
             ),
           ),
-        ],
+                   ],
       ),
     );
   }

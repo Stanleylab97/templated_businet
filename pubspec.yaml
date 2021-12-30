@@ -15,7 +15,7 @@ dependencies:
   apple_sign_in: ^0.1.0
   badges: ^1.1.1
   cached_network_image: ^2.3.3
-  cloud_firestore: ^0.14.3
+  cloud_firestore: ^0.14.3 # | 21.7.1
   connectivity: ^2.0.2
   cupertino_icons: ^1.0.0
   dots_indicator: ^1.0.0
@@ -72,8 +72,9 @@ dependencies:
 
 
 dev_dependencies:
-  flutter_test:
+  flutter_driver:
     sdk: flutter
+  test: any
 
   flutter_launcher_icons: "^0.8.0"
 
@@ -120,6 +121,12 @@ flutter:
           weight: 400
         - asset: assets/fonts/OpenSans-Regular.ttf
           weight: 500
+
+    - family: Hellix Bold
+      fonts:
+        - asset: assets/fonts/Hellix-Bold.ttf
+          weight: 500
+
 
     - family: Manrope
       fonts:

@@ -24,10 +24,10 @@ class LoveCount extends StatelessWidget {
         StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection(collectionName)
-              .doc(timestamp)
+              .doc(timestamp.trim())
               .snapshots(),
           builder: (context, AsyncSnapshot snap) {
-            if (!snap.hasData) 
+            if (!snap.hasData)
               return Text(
                 0.toString(),
                 style: TextStyle(
@@ -35,9 +35,9 @@ class LoveCount extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: Colors.grey),
               );
-               
-              print("Loves ::::: ${snap.data['loves']} ");
+
            
+
             return Text(
               snap.data['loves'].toString(),
               style: TextStyle(

@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'dart:math';
-
-
+import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 
 import 'const.dart';
 
@@ -23,7 +21,7 @@ class Utils {
         : Container();
   }
 
- /* static Future<File> cropImageFile(File image) async {
+  /* static Future<File> cropImageFile(File image) async {
      return await ImageCropper.cropImage(
         sourcePath: image.path,
         aspectRatioPresets: Platform.isAndroid
@@ -160,6 +158,52 @@ class Utils {
     return returnText;
   }
 
+  static String getDurationFromTimestamp(var timestamp) {
+    var now = DateTime.now();
+    var date = timestamp.toDate();
+    var diff = now.difference(date);
+    DateFormat formatter = DateFormat('H:m');
+    DateFormat formatterd = DateFormat('MM/dd/yyyy');
+    DateTime dt = (timestamp as Timestamp).toDate();
+    String time = '';
+
+    if (diff.inMinutes < 60) {
+      return time = 'Vu il y a ${diff.inMinutes} min';
+    } else if (diff.inHours <= 24 && now.day == date.day) {
+      return time = 'Vu aujourd\'hui à ${formatter.format(dt)}';
+    } else if (diff.inHours <= 24 && diff.inDays < 2 && now.day > date.day) {
+      return time = 'Vu hier à ${formatter.format(date)}';
+    } else if (diff.inDays < 2 && now.day > date.day) {
+      return time = 'Vu hier à ${formatter.format(date)}';
+    } else if (diff.inDays > 0 && diff.inDays >= 1) {
+      return time = 'Vu le ${formatterd.format(dt)}';
+    }
+    return time;
+  }
+
+  static String getPublishedDateFromTimestamp(var timestamp) {
+    var now = DateTime.now();
+    var date = timestamp.toDate();
+    var diff = now.difference(date);
+    DateFormat formatter = DateFormat('H:m');
+    DateFormat formatterd = DateFormat('dd/MM/yyyy');
+    DateTime dt = (timestamp as Timestamp).toDate();
+    String time = '';
+
+    if (diff.inMinutes < 60) {
+      return time = 'Il y a ${diff.inMinutes} min';
+    } else if (diff.inHours <= 24 && now.day == date.day) {
+      return time = 'Aujourd\'hui à ${formatter.format(dt)}';
+    } else if (diff.inHours <= 24 && diff.inDays < 2 && now.day > date.day) {
+      return time = 'Hier à ${formatter.format(date)}';
+    } else if (diff.inDays < 2 && now.day > date.day) {
+      return time = 'Hier à ${formatter.format(date)}';
+    } else if (diff.inDays > 0 && diff.inDays >= 1) {
+      return time = '${formatterd.format(dt)}';
+    }
+    return time;
+  }
+
   static String readTimestamp(int timestamp) {
     var now = DateTime.now();
     var date = DateTime.fromMillisecondsSinceEpoch(timestamp);
@@ -236,7 +280,7 @@ double getProportionateScreenHeight(double inputHeight) {
 }
 
 // Get the proportionate height as per screen size
- double getProportionateScreenWidth(double inputWidth) {
+double getProportionateScreenWidth(double inputWidth) {
   double screenWidth = SizeConfig.screenWidth;
   // 375 is the layout width that designer use
   return (inputWidth / 375.0) * screenWidth;

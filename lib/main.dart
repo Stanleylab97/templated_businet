@@ -27,7 +27,6 @@ import 'package:news_app/blocs/videos_bloc.dart';
 import 'package:news_app/pages/splash.dart';
 import 'package:provider/provider.dart';
 import 'blocs/podcasts.dart';
-import 'blocs/category_tab3_bloc.dart';
 import 'blocs/comments_bloc.dart';
 import 'models/theme_model.dart';
 

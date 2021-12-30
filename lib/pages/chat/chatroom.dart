@@ -3,9 +3,49 @@ import 'package:news_app/models/chat/chat_params.dart';
 import 'package:news_app/models/chat/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:news_app/config/utils.dart' as duration;
 
-class ChatRoom extends StatelessWidget {
+class ChatRoom extends StatefulWidget {
   // final AuthenticationService _auth = AuthenticationService();
+
+  @override
+  _ChatRoomState createState() => _ChatRoomState();
+}
+
+class _ChatRoomState extends State<ChatRoom> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    setStatus("Online");
+  }
+
+  void setStatus(String status) async {
+    if (status == "Offline")
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser.uid)
+          .update({"status": status, "lastseen": FieldValue.serverTimestamp()});
+    else
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser.uid)
+          .update({
+        "status": status,
+      });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // online
+      setStatus("Online");
+    } else {
+      // offline
+      setStatus("Offline");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +59,29 @@ class ChatRoom extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: UserList(),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(10)),
+                child: Row(children: [
+                  SizedBox(width: 10),
+                  Icon(Icons.search),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(13.0),
+                      child: Text("Rechercher une conversation"),
+                    ),
+                  ),
+                  Icon(Icons.more_vert_outlined),
+                  SizedBox(width: 10),
+                ])),
+            Expanded(child: UserList())
+          ],
+        ),
+      ),
     );
   }
 }
@@ -44,18 +106,23 @@ class _UserListState extends State<UserList> {
             return Center(child: CircularProgressIndicator());
           }
 
-           if (snapshot.hasError) {
+          if (snapshot.hasError) {
             return Center(child: Text('Veuillez réessayer plus tard.'));
-          } 
-         // final x = snapshot.data.docs.length;
-         // print("Record lenght: $x");
-
+          }
+          // final x = snapshot.data.docs.length;
+          // print("Record lenght: $x");
+          //
           return ListView.builder(
               itemCount: snapshot.data.docs.length,
               itemBuilder: (context, index) {
                 DocumentSnapshot doc = snapshot.data.docs[index];
-                return UserTile(
-                    AppUserData(name: doc['name'], uid: doc['uid']));
+                return UserTile(AppUserData(
+                    name: doc['name'],
+                    uid: doc['uid'],
+                    imageUrl: doc['image url'],
+                    status: doc['status'] == "Online"
+                        ? "En Ligne"
+                        : "${duration.Utils.getDurationFromTimestamp(doc['lastseen'])}"));
               });
         });
   }
@@ -71,25 +138,31 @@ class UserTile extends StatelessWidget {
     final currentUser = AppUser(FirebaseAuth.instance.currentUser.uid);
     if (currentUser == null) throw Exception("current user not found");
     return GestureDetector(
-      onTap: () {
-        if (currentUser.uid == user.uid) return;
-        Navigator.pushNamed(
-          context,
-          '/chat',
-          arguments: ChatParams(currentUser.uid, user),
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Card(
-          margin:
-              EdgeInsets.only(top: 12.0, bottom: 6.0, left: 20.0, right: 20.0),
-          child: ListTile(
-            title: Text(user.name),
-            // subtitle: Text('Drink ${user.waterCounter} water of glass'),
+        onTap: () {
+          if (currentUser.uid == user.uid) return;
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: ChatParams(currentUser.uid, user),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 1.0),
+          child: Card(
+            margin:
+                EdgeInsets.only(top: 1.0, bottom: 1.0, left: 5.0, right: 5.0),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+              child: ListTile(
+                leading: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.grey[300],
+                    backgroundImage: CachedNetworkImageProvider(user.imageUrl)),
+                title: Text(user.name),
+                subtitle: Text('${user.status}'),
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
